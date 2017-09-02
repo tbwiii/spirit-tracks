@@ -1,4 +1,4 @@
-# ticket-counter
+# Spirit Tracks
 
 > Easy score keeping for Ticket to Ride
 
