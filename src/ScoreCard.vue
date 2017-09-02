@@ -1,20 +1,20 @@
 <template>
   <div class="player-card">
-    <h2>
-      <div @click="toggleEdit" v-show="editing === false">{{ name }}</div>
-      <input ref="nameInput" v-show="editing === true" @keyup.enter="toggleEdit" type="text" v-model="name">
+    <h2 class="player-name">
+      <div @click="toggleEdit" v-if="editing === false">{{ name }}</div>
+      <input ref="nameInput" v-if="editing === true" @blur="toggleEdit" @keyup.enter="toggleEdit" type="text" v-model="name">
     </h2>
     <ul class="track-cards">
       <li class="track-card" v-for="(line, key) in lines">
         <h3 class="track-title">{{ key }}</h3>
         <span class="track-amount">{{ line.amount }}</span>
         <div class="amount-buttons">
-          <button class="amount-button" @click="add(key)">+</button>
           <button class="amount-button" @click="remove(key)">-</button>
+          <button class="amount-button" @click="add(key)">+</button>
         </div>
       </li>
     </ul>
-
+    <p class="trains">{{ remainingTrains }} trains remaining</p>
     <h3 class="score">{{ score }}</h3>
   </div>
 </template>
@@ -25,28 +25,35 @@ export default {
     return {
       name: "Player Name",
       editing: false,
+      trains: 40,
       lines: {
         'One': {
+          trains: 1,
           amount: 0,
           value: 1
         },
         'Two': {
+          trains: 2,
           amount: 0,
           value: 2
         },
         'Three': {
+          trains: 3,
           amount: 0,
           value: 4
         },
         'Four': {
+          trains: 4,
           amount: 0,
           value: 7
         },
         'Five': {
+          trains: 5,
           amount: 0,
           value: 10
         },
         'Six': {
+          trains: 6,
           amount: 0,
           value: 15
         }
@@ -61,6 +68,14 @@ export default {
       }
 
       return val;
+    },
+    remainingTrains() {
+      let val = 40;
+      for (var line in this.lines) {
+        val = val - (this.lines[line].trains * this.lines[line].amount);
+      }
+
+      return val;
     }
   },
   methods: {
@@ -68,14 +83,15 @@ export default {
       this.editing = !this.editing;
 
       if (this.editing) {
+        let self = this;
         this.name = '';
-        // TODO: set focus
+        setTimeout(function () {
+          self.$refs.nameInput.focus();
+        },10);
       } else {
         this.name = this.name ? this.name : 'Player Name'
       }
-
     },
-
     add(key) {
       this.lines[key].amount++;
     },
@@ -98,7 +114,12 @@ export default {
   padding: 1em;
 }
 
+.player-name {
+  float: left;
+}
+
 .track-cards {
+  clear: both;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -140,6 +161,10 @@ export default {
   font-size: 2em;
   margin: 1em 0 0;
   padding: 0;
+}
+
+.trains {
+  float: left;
 }
 
 input {
