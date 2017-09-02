@@ -127,18 +127,19 @@ export default {
 }
 
 .track-card {
-  border: solid 1px;
+  border: solid 1px #ddd;
   flex: 1;
   margin: 0 .2em;
   text-align: center;
 }
 
 .track-title {
-  margin: 0;
+  margin: .3em 0 0;
 }
 
 .track-amount {
   display: block;
+  margin: 1em;
 }
 
 .amount-buttons {
@@ -146,9 +147,12 @@ export default {
 }
 
 .amount-button {
-  background: #dedede;
-  border: 0;
+  background: #eee;
+  border: solid 1px #fff;
+  color: #555;
   flex: 1;
+  font-size: 1.2em;
+  font-weight: bold;
   outline: 0;
 
   &:hover {

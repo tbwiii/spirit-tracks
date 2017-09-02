@@ -68,8 +68,16 @@ a {
 }
 
 .menu-button {
-  padding: .5em;
+  background: #eee;
+  border: 0;
+  padding: 1em;
   font-size: 1em;
+  margin-top: 1.5em;
+  outline: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .player-cards {
