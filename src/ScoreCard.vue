@@ -85,9 +85,9 @@ export default {
       if (this.editing) {
         let self = this;
         this.name = '';
-        setTimeout(function () {
-          self.$refs.nameInput.focus();
-        },10);
+        this.$nextTick(function (){
+          this.$refs.nameInput.focus();
+        });
       } else {
         this.name = this.name ? this.name : 'Player Name'
       }
