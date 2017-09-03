@@ -93,7 +93,11 @@ export default {
       }
     },
     add(key) {
-      this.lines[key].amount++;
+      if (this.lines[key].trains > this.remainingTrains) {
+        return false;
+      } else {
+        this.lines[key].amount++;
+      }
     },
     remove(key) {
       if (this.lines[key].amount > 0) {
